@@ -16,12 +16,12 @@ module.exports = {
     },
     devServer: {
         stats: "minimal",
-        contentBase: path.resolve(__dirname, 'src/images'),
+        contentBase: [path.resolve(__dirname, 'src/images'), path.resolve(__dirname, 'apiServer/data/images')],
         contentBasePublicPath: "/images",
         overlay: true,
         historyApiFallback: true,
         disableHostCheck: true,
-        headers: {"Access-Control-Allow-Origin": "*"},
+        headers: { "Access-Control-Allow-Origin": "*" },
         https: false,
         port: 8082
     },
@@ -40,7 +40,17 @@ module.exports = {
         {
             test: /\.(css)$/,
             use: ["style-loader", "css-loader"]
-        }
-    ]
+        },
+        {
+            test: /\.(svg)$/,
+            use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        limit: false,
+                    },
+                },
+            ]
+        }]
     }
 }
