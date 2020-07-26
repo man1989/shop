@@ -1,2 +1,2 @@
 # shop
-Shop app replication polymer shop app in React
+Polymer shop app clone in React and Redux
