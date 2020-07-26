@@ -21,12 +21,10 @@ const Page = ({ fetchCartList, deleteFromCart, updateCart, products }) => {
     }, [products]);
 
     const handleDelete = (product) => {
-        alert(product.title);
         deleteFromCart(product.name);
     };
     const handleChange = (product, event) => {
         const qty = Number(event.target.value);
-        alert(product.title);
         updateCart(product.name, qty);
     };
 
