@@ -9,7 +9,7 @@
         "server:api": "node ./apiServer/app.js"
     },
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "bootstrap": "^4.5.0",
         "bootstrap-icons": "^1.0.0-alpha5",
         "interweave": "^12.5.0",
