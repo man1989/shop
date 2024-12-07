@@ -15,6 +15,7 @@ module.exports = {
         publicPath: "/"
     },
     devServer: {
+        host: "0.0.0.0",
         stats: "minimal",
         contentBase: [path.resolve(__dirname, 'src/images'), path.resolve(__dirname, 'apiServer/data/images')],
         contentBasePublicPath: "/images",
