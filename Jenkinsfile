@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-      yamlFile 'kaniko.yaml'
+      yamlFile 'kaniko.yml'
     }
   }
 
@@ -29,6 +29,7 @@ pipeline {
 
         }
 
+    
     stage('Build & Push with Kaniko') {
       steps {
         container(name: 'kaniko', shell: '/busybox/sh') {
@@ -39,5 +40,24 @@ pipeline {
         }
       }
     }
+
+    stage('Deploy to k3s') {
+      steps {
+        script {
+          // Replace image reference in the deployment YAML file
+          // sh """
+          // sed -i 's|image: .*|image: registry.local.innolab.in/shop:latest|' deployment.yaml
+          // """
+
+          // Apply the Kubernetes manifests
+          // withEnv(["KUBECONFIG=${env.KUBECONFIG}"]) {
+          sh """
+          kubectl apply -f deployment.yml
+          kubectl apply -f ingress.yml
+          """
+          // }
+        }
+      }
+    }    
   }
 }

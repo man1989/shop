@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop
+  labels:
+    app: shop
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shop
+  template:
+    metadata:
+      labels:
+        app: shop
+    spec:
+      containers:
+      - name: shop-container
+        image: registry.local.innolab.in/shop:latest # Replace with your image
+        ports:
+         - protocol: TCP
+           port: 3000
+           targetPort: 8082
+         - protocol: TCP
+           port: 8083
+           targetPort: 8083

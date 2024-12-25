@@ -1,0 +1,7 @@
+services:
+  shop:
+    image: registry.local.innolab.in/shop:latest
+    command: "npm start"
+    ports:
+      - "8083:8083"
+      - "3032:8082"
