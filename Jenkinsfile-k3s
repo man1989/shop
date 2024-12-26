@@ -28,10 +28,9 @@ pipeline {
         }
     }
 
-
     stage('Deploy to k3s') {
       steps {
-        container(name: "kubectl"){
+        container("kubectl"){
           withCredentials([file(credentialsId: 'jenkins-secret', variable: 'KUBECONFIG')]){
             sh """
             kubectl get ns
