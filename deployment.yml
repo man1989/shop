@@ -20,7 +20,9 @@ spec:
         image: registry.local.innolab.in/shop:latest  # Replace with your image and tag
         ports:
         - containerPort: 8082  # Port your application listens on
+          name: app
         - containerPort: 8083
+          name: server 
 
 ---
 
@@ -36,9 +38,10 @@ spec:
   ports:
   - protocol: TCP
     port: 8082          # Port the Service exposes
-    targetPort: 8082    # Container's port to forward traffic to
+    targetPort: app    # Container's port to forward traffic to
+    name: app
   - protocol: TCP
     port: 8083          # Port the Service exposes
-    targetPort: 8083    # Container's port to forward traffic to    
-  type: ClusterIP      # Default service type. Options: ClusterIP, NodePort, LoadBalancer
+    targetPort: server    # Container's port to forward traffic to
+    name: server
 
