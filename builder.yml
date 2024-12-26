@@ -1,3 +1,4 @@
+apiVersion: v1
 kind: Pod
 spec:
   containers:
@@ -10,6 +11,11 @@ spec:
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
+  - name: kubectl
+    image: bitnami/kubectl:1.32.0
+    command:
+    - cat
+    tty: true
   volumes:
   - name: jenkins-docker-cfg
     projected:

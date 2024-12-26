@@ -1,3 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: shop-rewrite
+spec:
+  replacePathRegex:
+    regex: ^/shop-app/path(.*)  # Matches the incoming path
+    replacement: /path$1      # Rewrites the path
+
+---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -15,4 +26,4 @@ spec:
           service:
             name: shop
             port:
-              number: 3000
+              number: 8080

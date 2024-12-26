@@ -1,26 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shop
+  name: shop-deployment
   labels:
-    app: shop
+    app: shop-app
 spec:
-  replicas: 3
+  replicas: 2  # Number of pods to run
   selector:
     matchLabels:
-      app: shop
+      app: shop-app
   template:
     metadata:
       labels:
-        app: shop
+        app: shop-app
     spec:
       containers:
       - name: shop-container
-        image: registry.local.innolab.in/shop:latest # Replace with your image
+        image: registry.local.innolab.in/shop:latest  # Replace with your image and tag
         ports:
-         - protocol: TCP
-           port: 3000
-           targetPort: 8082
-         - protocol: TCP
-           port: 8083
-           targetPort: 8083
+        - containerPort: 8082  # Port your application listens on
+        - containerPort: 8083
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-service
+  labels:
+    app: shop-app
+spec:
+  selector:
+    app: shop-app  # Matches the Deployment's labels
+  ports:
+  - protocol: TCP
+    port: 8082          # Port the Service exposes
+    targetPort: 8082    # Container's port to forward traffic to
+  - protocol: TCP
+    port: 8083          # Port the Service exposes
+    targetPort: 8083    # Container's port to forward traffic to    
+  type: ClusterIP      # Default service type. Options: ClusterIP, NodePort, LoadBalancer
+
